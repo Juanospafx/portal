@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Si el fichero o directorio solicitado no existe, redirige a index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+</IfModule>
+
+# Proteger archivos sensibles
+<FilesMatch "(^.*\.ini|^.*\.log|^.*\.sql|^.*\.bak|^.*\.config)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# ... (el resto del fichero de cache y compresión se mantiene igual)

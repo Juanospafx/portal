@@ -1,9 +1,8 @@
 <?php
   $page_title = 'Edit Group';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
-   // Checkin What level user has permission to view this page
-    page_require_level(1);
+  require_once('auth_check.php');
+  // Checkin What level user has permission to view this page
+  page_require_level(1);
 ?>
 <?php
   $e_group = find_by_id('user_groups',(int)$_GET['id']);

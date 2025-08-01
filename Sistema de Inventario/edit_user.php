@@ -1,15 +1,14 @@
 <?php
   $page_title = 'Edit User';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
-   // Checkin What level user has permission to view this page
-   page_require_level(1);
-   $all_groups = find_all('user_groups');
-   $user = find_by_id('users',(int)$_GET['id']);
-   if(!$user){
-     $session->msg("d","Missing user id.");
-     redirect('users.php');
-   }
+  require_once('auth_check.php');
+  // Checkin What level user has permission to view this page
+  page_require_level(1);
+  $all_groups = find_all('user_groups');
+  $user = find_by_id('users',(int)$_GET['id']);
+  if(!$user){
+    $session->msg("d","Missing user id.");
+    redirect('users.php');
+  }
 ?>
 <?php
   $e_user = find_by_id('users',(int)$_GET['id']);

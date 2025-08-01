@@ -1,7 +1,6 @@
 <?php
   $page_title = 'Home Page';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
+  require_once('auth_check.php');
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">

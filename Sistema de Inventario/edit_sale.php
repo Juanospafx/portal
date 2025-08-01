@@ -1,8 +1,7 @@
 <?php
-  $page_title = 'Edit inputs/outputs';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
-  // Verifica el nivel de usuario
+  $page_title = 'Edit Sale';
+  require_once('auth_check.php');
+  //Check what level user has permission to view this page
   page_require_level(3);
 ?>
 

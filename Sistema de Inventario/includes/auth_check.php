@@ -1,5 +1,5 @@
 <?php
-// includes/auth_check.php para Sistema de Inventario (v3 - Final)
+// includes/auth_check.php para Sistema de Inventario (v4 - Rutas de Servidor)
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -14,17 +14,22 @@ if (!isset($_GET['jwt'])) {
     exit;
 }
 
-// Cargar dependencias de la aplicación y de JWT
-require_once __DIR__ . '/../libs/php-jwt/src/Exception.php';
-require_once __DIR__ . '/../libs/php-jwt/src/JWT.php';
-require_once __DIR__ . '/../libs/php-jwt/src/Key.php';
-require_once __DIR__ . '/load.php'; // Carga las funciones de la app como find_by_id y el objeto $session
+// Definir una ruta base para evitar problemas con la inclusión de ficheros
+// $_SERVER['DOCUMENT_ROOT'] apunta a /public_html/
+$base_path = $_SERVER['DOCUMENT_ROOT'] . '/Sistema de Inventario';
+
+require_once $base_path . '/libs/php-jwt/src/JWT.php';
+require_once $base_path . '/libs/php-jwt/src/Key.php';
+require_once $base_path . '/libs/php-jwt/src/ExpiredException.php';
+require_once $base_path . '/libs/php-jwt/src/BeforeValidException.php';
+require_once $base_path . '/libs/php-jwt/src/SignatureInvalidException.php';
+require_once $base_path . '/includes/load.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 $jwt = $_GET['jwt'];
-$secret_key = 'tu_clave_secreta_muy_larga_y_aleatoria_aqui_cambiala_en_produccion_por_favor_mas_de_32_caracteres';
+$secret_key = '02b625d28e62a81fc693a13dd2c716a8c61b1ca61650db0d5b3b7ee7f3e34a3f';
 
 try {
     $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
@@ -32,26 +37,25 @@ try {
 
     $app_access_list = array_map('trim', explode(',', $user_data['app_access']));
     if (!in_array('Sistema de Inventario', $app_access_list)) {
-        die('Acceso denegado. No tienes permiso para usar esta aplicación.');
+        die('Acceso denegado. No tienes permiso para esta aplicación.');
     }
 
-    // Es crucial que el usuario exista en la BD de esta app
     $user = find_by_id('users', (int)$user_data['id']);
     if (!$user) {
-        die('Error de autenticación: El usuario del token no existe en la base de datos de esta aplicación.');
+        die('Error: El usuario del token no existe en la BD local.');
     }
 
-    // Usar el sistema de sesión de la propia aplicación
     global $session;
     $session->login($user['id']);
     updateLastLogIn($user['id']);
 
-    $redirect_url = strtok($_SERVER['REQUEST_URI'], '?');
+    // Limpiar la URL y redirigir
+    $redirect_url = '/Sistema de Inventario/home.php';
     header('Location: ' . $redirect_url);
     exit;
 
 } catch (Exception $e) {
     http_response_code(401);
-    die('Acceso denegado. El token de autenticación no es válido o ha expirado. (Error: ' . $e->getMessage() . ')');
+    die('Error de autenticación: ' . $e->getMessage());
 }
 ?>

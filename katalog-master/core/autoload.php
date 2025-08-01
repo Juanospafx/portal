@@ -19,4 +19,5 @@ include "controller/PostData.php";
 include "controller/SaleData.php";
 include "controller/ProductSubcategoriesData.php";
 include "controller/SaleItemData.php";
+include "admin/core/app/model/UserData.php";
 ?>

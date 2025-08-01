@@ -1,9 +1,8 @@
 <?php
-  $page_title = 'Add group';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
-  // Checkin What level user has permission to view this page
-   page_require_level(1);
+  $page_title = 'Add Group';
+  require_once('auth_check.php');
+  // Check what level user has permission to view this page
+  page_require_level(1);
 ?>
 <?php
   if(isset($_POST['add'])){

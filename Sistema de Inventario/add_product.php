@@ -1,12 +1,10 @@
 <?php
   $page_title = 'Add Product';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
-  // Checkin What level user has permission to view this page
+  require_once('auth_check.php');
+  // Check what level user has permission to view this page
   page_require_level(2);
   $all_categories = find_all('categories');
   $all_photo = find_all('media');
-  $all_brands = find_all('brands');
 ?>
 
 <?php include_once('layouts/header.php'); ?>

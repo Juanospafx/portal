@@ -1,8 +1,7 @@
 <?php
-  $page_title = 'Admin home page';
-  require_once('includes/auth_check.php');
-  require_once('includes/load.php');
-  // Checkin What level user has permission to view this page
+  $page_title = 'Admin Home Page';
+  require_once('auth_check.php');
+  // Check what level user has permission to view this page
   page_require_level(1);
 ?>
 

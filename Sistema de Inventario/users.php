@@ -7,10 +7,12 @@
    $all_users = find_all_user();
 ?>
 <?php
-// Checkin What level user has permission to view this page
- page_require_level(1);
-//pull out all user form database
- $all_users = find_all_user();
+  $page_title = 'All User';
+  require_once('auth_check.php');
+  // Check what level user has permission to view this page
+  page_require_level(1);
+  //pull out all user form database
+  $all_users = find_all_user();
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
